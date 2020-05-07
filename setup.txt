@@ -14,4 +14,4 @@ Make sure the folder is in your PATH environment variable.
 
 7) Make this url (eg: http://977ab183.ngrok.io/) your app baseUrl
 
-8) Open another command prompt pointing to your app directory and run your json server: json-server --watch db.json -p 3005 -d 2000
+8) Open another command prompt pointing to your app directory and run your json server: json-server --watch db.json -p 3002 -d 2000
