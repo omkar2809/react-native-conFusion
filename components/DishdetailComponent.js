@@ -73,7 +73,7 @@ function RenderComments(props) {
                     imageSize={15} readonly startingValue={item.rating}
                     style={{alignSelf:'flex-start'}}
                 />
-                <Text style={{fontSize:12}}>{'--' + item.author + ',' + item.date}</Text>
+                <Text style={{fontSize:12}}>{'--' + item.author + ', ' + new Date(item.date).toUTCString()}</Text>
             </View>
         );
     }
