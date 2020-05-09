@@ -109,7 +109,7 @@ const ReservationNavigator = createStackNavigator({
         headerLeft: <Icon name='menu' size={38} color="white" onPress = {() => navigation.toggleDrawer()}/>
     })
 });
-
+/*
 const FavoritesNavigator = createStackNavigator({
     Favorites: {screen: Favorites}
     }, {
@@ -123,6 +123,26 @@ const FavoritesNavigator = createStackNavigator({
         },
         headerLeft: <Icon name='menu' size={38} color="white" onPress = {() => navigation.toggleDrawer()}/>
     })
+});
+*/
+const FavoritesNavigator = createStackNavigator({
+    Favorites: {screen: Favorites,
+        navigationOptions: ({navigation}) => ({
+            headerLeft: <Icon name='menu' size={38} color="white" onPress = {() => navigation.toggleDrawer()}/>
+        })
+    },
+    Dishdetail : {screen: Dishdetail}
+    }, {
+    initialRouteName: 'Favorites',
+    navigationOptions: {
+        headerStyle: {
+            backgroundColor: '#512DA8'
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+            color: '#fff'
+        }
+    }
 });
 
 const CustomDrawerContentComponent = (props) => (
