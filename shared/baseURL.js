@@ -1,1 +1,1 @@
-export const baseURL = 'http://3bdf0a89.ngrok.io/' 
+export const baseURL = 'http://192.168.43.31:3002/' 
