@@ -28,7 +28,13 @@ function RenderDish(props) {
     const recognizeDrag = ({moveX, moveY, dx, dy}) => {
         if(dx < -200)
             return true;
-        else false;
+        else return false;
+    }
+
+    const recognizeComment = ({moveX, moveY, dx, dy}) => {
+        if(dx > -200)
+            return true;
+        else return false;
     }
 
     const panResponder = PanResponder.create({
@@ -56,6 +62,9 @@ function RenderDish(props) {
                     ],
                     {cancelable: false}
                 )
+            else if (recognizeComment(gestureState)){
+                props.onPressComment();
+            }
             return true;
         }
     });
@@ -173,7 +182,7 @@ class Dishdetail extends React.Component {
                         visible = {this.state.showModal}
                         onDismiss = {() => this.toggleModal()}
                         onRequestClose = {() => this.toggleModal}>
-                    <View style = {style.modal}>
+                    <Animatable.View style = {style.modal} animation="fadeInUp" duration={1000} delay={500}>
                         <View>
                             <Rating showRating
                                     type = "star"
@@ -222,7 +231,7 @@ class Dishdetail extends React.Component {
                                     title = "Close"
                                     />
                         </View> 
-                    </View>       
+                    </Animatable.View>       
                 </Modal>
                 <RenderComments comments={this.props.comments.comments.filter((comment) => comment.dishId === dishId)} />
             </ScrollView>
