@@ -4,6 +4,8 @@ import { Input, CheckBox, Button, Icon } from 'react-native-elements';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import * as SecureStore from 'expo-secure-store';
+import { Asset } from "expo-asset";
+import * as ImageManipulator from "expo-image-manipulator";
 import { createBottomTabNavigator } from 'react-navigation';
 import { baseURL } from '../shared/baseURL';
 
@@ -67,6 +69,7 @@ class LoginTab extends Component {
                 <Input
                     placeholder="Password"
                     leftIcon={{ type: 'font-awesome', name: 'key' }}
+                    secureTextEntry={true}
                     onChangeText={(password) => this.setState({password})}
                     value={this.state.password}
                     containerStyle={styles.formInput}
@@ -145,22 +148,32 @@ class RegisterTab extends Component {
             });
             if (!capturedImage.cancelled) {
                 console.log(capturedImage);
-                this.setState({imageUrl: capturedImage.uri });
+                this.processImage(capturedImage.uri)
             }
         }
+    }
 
+    processImage = async(imageUri) => {
+        let processedImage = await ImageManipulator.manipulateAsync(
+            imageUri,
+            [
+                {resize: {width: 400}}
+            ],
+            {formate: 'png'}
+        );
+        this.setState({imageUrl: processedImage.uri})
     }
     
     static navigationOptions = {
         title: 'Register',
-        tabBarIcon: ({ tintColor, focused }) => (
+        tabBarIcon: ({ tintColor }) => (
             <Icon
-              name='user-plus'
-              type='font-awesome'            
-              size={24}
-              iconStyle={{ color: tintColor }}
+                name='user-plus'
+                type='font-awesome'            
+                size={24}
+                iconStyle={{ color: tintColor }}
             />
-          ) 
+        ) 
     };
 
     handleRegister() {
@@ -195,6 +208,7 @@ class RegisterTab extends Component {
                 <Input
                     placeholder="Password"
                     leftIcon={{ type: 'font-awesome', name: 'key' }}
+                    secureTextEntry={true}
                     onChangeText={(password) => this.setState({password})}
                     value={this.state.password}
                     containerStyle={styles.formInput}

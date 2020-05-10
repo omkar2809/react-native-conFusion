@@ -158,8 +158,7 @@ const LoginNavigator = createStackNavigator({
     },
     title: 'Login',
     headerTintColor: "#fff",
-    headerLeft: <Icon name="menu" size={24}
-      iconStyle={{ color: 'white' }} 
+    headerLeft: <Icon name='menu' size={38} color="white" iconStyle={{marginLeft: 10}}
       onPress={ () => navigation.toggleDrawer() } />    
   })
 });
