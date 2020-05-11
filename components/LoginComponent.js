@@ -140,9 +140,24 @@ class RegisterTab extends Component {
     getImageFromCamera = async () => {
         const cameraPermission = await Permissions.askAsync(Permissions.CAMERA);
         const cameraRollPermission = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-
         if (cameraPermission.status === 'granted' && cameraRollPermission.status === 'granted') {
             let capturedImage = await ImagePicker.launchCameraAsync({
+                allowsEditing: true,
+                aspect: [4, 3],
+            });
+            if (!capturedImage.cancelled) {
+                console.log(capturedImage);
+                this.processImage(capturedImage.uri)
+            }
+        }
+    }
+
+    getImageFromGallery = async () => {
+        const cameraPermission = await Permissions.askAsync(Permissions.CAMERA);
+        const cameraRollPermission = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+        if (cameraPermission.status === 'granted' && cameraRollPermission.status === 'granted') {
+            let capturedImage = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.All,
                 allowsEditing: true,
                 aspect: [4, 3],
             });
@@ -195,7 +210,14 @@ class RegisterTab extends Component {
                         />
                     <Button
                         title="Camera"
+                        buttonStyle={{margin:20}}
                         onPress={this.getImageFromCamera}
+                        />
+                    <Button
+                        title="Gallery"
+                        buttonStyle={{margin:20}}
+                        onPress={this.getImageFromGallery}
+                        
                         />
                 </View>
                 <Input
